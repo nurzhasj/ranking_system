@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Pms\Support\Requests;
+namespace Ranking\Support\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

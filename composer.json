@@ -29,7 +29,9 @@
             "Ranking\\Domains\\RankingModule\\Requests\\": "ranking/Domains/RankingModule/Requests/",
             "Ranking\\Domains\\RankingModule\\Controllers\\": "ranking/Domains/RankingModule/Controllers/",
             "Ranking\\Domains\\RankingModule\\Core\\DTO\\": "ranking/Domains/RankingModule/Core/DTO/",
-            "Ranking\\Domains\\RankingModule\\Core\\Handlers\\": "ranking/Domains/RankingModule/Core/Handlers/"
+            "Ranking\\Domains\\RankingModule\\Core\\Handlers\\": "ranking/Domains/RankingModule/Core/Handlers/",
+            "Ranking\\Support\\Requests\\": "ranking/Support/Requests/",
+            "Ranking\\Support\\Traits\\": "ranking/Support/Traits/"
         }
     },
     "autoload-dev": {

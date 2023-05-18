@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace Ranking\Domains\RankingModule\Requests;
 
-use Pms\Support\Requests\BaseFormRequest;
+use Illuminate\Support\Arr;
+use Ranking\Domains\RankingModule\Core\DTO\AddToRankingsRequestDTO;
+use Ranking\Support\Requests\BaseFormRequest;
 
 final class AddToRankingsRequest extends BaseFormRequest
 {
@@ -12,7 +14,17 @@ final class AddToRankingsRequest extends BaseFormRequest
     {
         return [
             'user_id' => 'required|int',
-            'score' => 'required|int',
+            'score' => 'required|numeric|between:0.0,5.0',
         ];
+    }
+
+    public function getDto(): AddToRankingsRequestDTO
+    {
+        $validated = $this->validated();
+
+        return new AddToRankingsRequestDTO(
+            userId: (int) Arr::get($validated, 'user_id'),
+            score: (int) Arr::get($validated, 'score')
+        );
     }
 }

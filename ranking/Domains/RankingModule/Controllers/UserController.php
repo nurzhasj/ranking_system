@@ -2,35 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace Ranking\Domains\RankingModule\Controllers;
 
-use App\Models\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Http\Request;
+use Ranking\Domains\RankingModule\Core\Handlers\AddToRankingsHandler;
+use Ranking\Domains\RankingModule\Requests\AddToRankingsRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 final class UserController extends Controller
 {
-    public function addToRankings(User $user, $newScore): JsonResponse
+    public function addToRankings(AddToRankingsRequest $request, AddToRankingsHandler $handler): JsonResponse
     {
-        Redis::transaction(function ($redis) use ($user, $newScore) {
-            $totalScore = $redis->hget("user:{$user->id}", 'totalScore') ?: 0;
-            $count = $redis->hget("user:{$user->id}", 'count') ?: 0;
+        $handler->handle($request->getDto());
 
-            // Update the total score & count.
-            $totalScore += $newScore;
-            $count++;
-
-            // Calculating average score
-            $averageScore = $totalScore / $count;
-
-            $redis->hmset("user:{$user->id}", [
-                'totalScore' => $totalScore,
-                'count' => $count,
-                'averageScore' => $averageScore,
-            ]);
-
-            $redis->zadd('ranking', $averageScore, $user->id);
-        });
+        $this->response(
+            message: 'Score was added successfully',
+            data: [],
+            code: Response::HTTP_CREATED
+        );
     }
 }

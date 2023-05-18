@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace Ranking\Domains\RankingModule\Core\DTO;
 
 final class AddToRankingsRequestDTO
 {
